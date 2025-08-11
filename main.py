@@ -23,10 +23,8 @@ def decode(key, enc):
 #window
 window=Tk()
 window.title("The Scret Notes App")
-window.config(padx=10,pady=80)
-window.minsize(500,600)
+window.geometry("1000x900")
 window.config(bg='silver')
-
 
 #image
 img = Image.open("topsecretlogo.png")
@@ -34,7 +32,11 @@ resized=img.resize((150,150),Image.Resampling.LANCZOS)
 itk=ImageTk.PhotoImage(resized)
 lbl=Label(window,image=itk)
 lbl.image=itk
-lbl.pack(pady=(0,20))
+lbl.pack(pady=(0,5))
+
+#information
+lbl_guide=Label(text='If you want to retrieve your secret notes:\n1) Just enter the file name,\n2) press GET,\n3) Enter the KEY and click Decrypt.',font=("Arial",10,'bold'),bg='brown',fg='white')
+lbl_guide.pack(pady=(10,10))
 
 #create file
 def save_and_encypt():
@@ -63,7 +65,7 @@ def save_and_encypt():
 
 def decrypted_note():
     message_encrypted = text.get('1.0',END)
-    
+
     password=passw_var.get()
     passw_var.set("")
     
@@ -80,10 +82,31 @@ def decrypted_note():
             messagebox.showinfo(title='Error',message='Please encrypted text')
         enter_key.delete(0,END)
 
+def get_file():
+    try:
+        a=enter_title.get()
+        text_file=open(f'{a}.txt','r')
+        content=text_file.read()
+        text.insert(END,content)
+        text_file.close()
+        btn_get.config(state='disabled')
+    except:
+        messagebox.showinfo(title='Error',message='Get True File!')
+#show and hide password
+def toggle_passsword():
+    if enter_key.cget('show')=='*':
+        enter_key.config(show='')
+        btn_show_hide.config(text='Hide Password')
+    else:
+        enter_key.config(show='*')
+        btn_show_hide.config(text='Show Password')  
+
+
 def clear_all():
     text.delete(1.0,END)
     enter_key.delete(0,END)
     enter_title.delete(0,END)
+    btn_get.config(state='active')
  
 #title
 title=Label(text='Enter Your File Name',font=("Arial",10,'bold'))
@@ -91,14 +114,14 @@ title.pack()
 
 #enter title
 enter_title=Entry(width=35)
-enter_title.pack(pady=(0,20))
+enter_title.pack(pady=(0,10))
 
 #text title
 text_title=Label(text='Enter Your Secret Notes',font=("Arial",10,'bold'))
 text_title.pack()
 
 #enter text
-text=Text(width=43,height=15)
+text=Text(width=43,height=10)
 text.config(font=("Arial",10,'italic'))
 text.pack(pady=(0,20))
 
@@ -108,22 +131,28 @@ key_title.pack()
 passw_var=StringVar()
 
 #enter key
-enter_key=Entry(width=35,textvariable=passw_var,show='*')
-enter_key.pack(pady=(0,20))
+enter_key=Entry(width=15,textvariable=passw_var,show='*')
+enter_key.pack()
+
+#button of show/hide password
+btn_show_hide=Button(text='Show Password',command=toggle_passsword)
+btn_show_hide.pack(pady=(0,5))
 
 #save & encrypt
-save_encrypt=Button(text="Save & Encrypt",font=("Arial",10,'bold'),command=save_and_encypt)
-
-save_encrypt.pack()
-
-#decrypt
-decrypt=Button(text="Decrypt",font=("Arial",10,'bold'),command=decrypted_note)
-decrypt.pack()
+save_encrypt=Button(text="Save & Encrypt",font=("Arial",10,'bold'),bg='light green',command=save_and_encypt)
+save_encrypt.pack(pady=(5))
 
 #clear the window
-clear_button = Button(text="Clear ALL",bg='firebrick',command=clear_all)
-clear_button.pack(pady=10)
+clear_button = Button(text="Clear ALL",bg='firebrick',fg='white',command=clear_all)
+clear_button.pack()
 
+#Get file
+btn_get=Button(text='GET',command=get_file,font=("Arial",10,'bold'),bg='light green')
+btn_get.pack(pady=5)
+
+#decrypt
+decrypt=Button(text="Decrypt",font=("Arial",10,'bold'),bg='light green',command=decrypted_note)
+decrypt.pack(pady=(5))
 
 #mainloop
 window.mainloop()
