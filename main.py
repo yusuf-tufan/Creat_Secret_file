@@ -23,7 +23,7 @@ def decode(key, enc):
 #window
 window=Tk()
 window.title("The Scret Notes App")
-window.geometry("1000x900")
+window.state("zoomed")
 window.config(bg='silver')
 
 #image
