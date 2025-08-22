@@ -57,3 +57,5 @@ To retrieve an encrypted note:
 Feel free to fork this repository, submit issues, and propose changes.  
 If you'd like to contribute to this project, please open a pull request!
 
+## 🖥️ Screenshots
+<img style="display: block;-webkit-user-select: none;margin: auto;cursor: zoom-in;background-color: hsl(0, 0%, 90%);transition: background-color 300ms;" src="https://raw.githubusercontent.com/yusuf-tufan/Creat_Secret_file/refs/heads/master/screenshot.png" width="350" height="350">
