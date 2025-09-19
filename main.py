@@ -96,10 +96,10 @@ def get_file():
 def toggle_passsword():
     if enter_key.cget('show')=='*':
         enter_key.config(show='')
-        btn_show_hide.config(text='Hide Password')
+        btn_show_hide.config(image=img_hide)
     else:
         enter_key.config(show='*')
-        btn_show_hide.config(text='Show Password')  
+        btn_show_hide.config(image=img_show)
 
 
 def clear_all():
@@ -134,8 +134,14 @@ passw_var=StringVar()
 enter_key=Entry(width=15,textvariable=passw_var,show='*')
 enter_key.pack()
 
+
+img_show=PhotoImage(file='show.png')
+img_show=img_show.subsample(7)
+img_hide=PhotoImage(file='hide.png')
+img_hide=img_hide.subsample(8)
+
 #button of show/hide password
-btn_show_hide=Button(text='Show Password',command=toggle_passsword)
+btn_show_hide=Button(image=img_show,command=toggle_passsword)
 btn_show_hide.pack(pady=(0,5))
 
 #save & encrypt
