@@ -24,15 +24,15 @@ def decode(key, enc):
 window=Tk()
 window.title("The Scret Notes App")
 window.state("zoomed")
-window.config(bg='silver')
+window.config(bg='Dark Slate Gray')
 
 #image
 img = Image.open("topsecretlogo.png")
-resized=img.resize((150,150),Image.Resampling.LANCZOS)
+resized=img.resize((400,100),Image.Resampling.LANCZOS)
 itk=ImageTk.PhotoImage(resized)
 lbl=Label(window,image=itk)
 lbl.image=itk
-lbl.pack(pady=(0,5))
+lbl.pack(pady=(10,5))
 
 #information
 lbl_guide=Label(text='If you want to retrieve your secret notes:\n1) Just enter the file name,\n2) press GET,\n3) Enter the KEY and click Decrypt.',font=("Arial",10,'bold'),bg='brown',fg='white')
@@ -92,6 +92,7 @@ def get_file():
         btn_get.config(state='disabled')
     except:
         messagebox.showinfo(title='Error',message='Get True File!')
+
 #show and hide password
 def toggle_passsword():
     if enter_key.cget('show')=='*':
@@ -115,6 +116,8 @@ title.pack()
 #enter title
 enter_title=Entry(width=35)
 enter_title.pack(pady=(0,10))
+
+enter_title.focus_set()
 
 #text title
 text_title=Label(text='Enter Your Secret Notes',font=("Arial",10,'bold'))
@@ -141,16 +144,12 @@ img_hide=PhotoImage(file='hide.png')
 img_hide=img_hide.subsample(8)
 
 #button of show/hide password
-btn_show_hide=Button(image=img_show,command=toggle_passsword)
+btn_show_hide=Button(bg='Pale Green',image=img_show,command=toggle_passsword)
 btn_show_hide.pack(pady=(0,5))
 
 #save & encrypt
 save_encrypt=Button(text="Save & Encrypt",font=("Arial",10,'bold'),bg='light green',command=save_and_encypt)
 save_encrypt.pack(pady=(5))
-
-#clear the window
-clear_button = Button(text="Clear ALL",bg='firebrick',fg='white',command=clear_all)
-clear_button.pack()
 
 #Get file
 btn_get=Button(text='GET',command=get_file,font=("Arial",10,'bold'),bg='light green')
@@ -158,7 +157,11 @@ btn_get.pack(pady=5)
 
 #decrypt
 decrypt=Button(text="Decrypt",font=("Arial",10,'bold'),bg='light green',command=decrypted_note)
-decrypt.pack(pady=(5))
+decrypt.pack(pady=(10))
+
+#clear the window
+clear_button = Button(text="Clear ALL",bg='firebrick',fg='white',font=("Arial",10,'bold'),command=clear_all)
+clear_button.pack()
 
 #mainloop
 window.mainloop()
